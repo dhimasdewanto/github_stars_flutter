@@ -26,5 +26,18 @@ class GithubStarsBloc extends Bloc<GithubStarsEvent, GithubStarsState> {
   @override
   Stream<GithubStarsState> mapEventToState(
     GithubStarsEvent event,
-  ) async* {}
+  ) async* {
+    if (event is OpenSearchEvent && state is ViewGithubStarsState) {
+      yield OpenSearchState();
+    } else if (event is CloseSearchEvent && state is OpenSearchState) {
+      yield ViewGithubStarsState(
+        futureListGithubStars: getAllUseCase.call,
+      );
+    } else if (event is SearchingEvent && state is OpenSearchState) {
+      print("SEARCH: ${event.searchText}");
+      yield ViewGithubStarsState(
+        futureListGithubStars: getAllUseCase.call,
+      );
+    }
+  }
 }

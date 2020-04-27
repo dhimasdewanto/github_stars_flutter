@@ -8,6 +8,7 @@ import 'package:github_stars_flutter/core/dependency_injection/dependency_inject
 import 'package:github_stars_flutter/core/router/router.gr.dart';
 import 'package:github_stars_flutter/domain/entities/github_stars.dart';
 import 'package:github_stars_flutter/presentation/bloc/github_stars/github_stars_bloc.dart';
+import 'package:github_stars_flutter/presentation/widgets/search_app_bar.dart';
 import 'package:github_stars_flutter/presentation/widgets/star_widget.dart';
 
 class ViewAllPage extends StatelessWidget {
@@ -20,13 +21,16 @@ class ViewAllPage extends StatelessWidget {
     return BlocProvider<GithubStarsBloc>(
       create: (context) => githubStarsBloc,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(AppSettings.appName),
-        ),
+        appBar: SearchAppBar(),
         body: BlocBuilder<GithubStarsBloc, GithubStarsState>(
           builder: (context, state) {
-            final futureListGithubStars =
-                (state as ViewGithubStarsState).futureListGithubStars;
+            Future<List<GithubStars>> Function(int) futureListGithubStars;
+
+            if (state is ViewGithubStarsState) {
+              futureListGithubStars = state.futureListGithubStars;
+            } else if (state is OpenSearchState) {
+              futureListGithubStars = state.futureListGithubStars;
+            }
 
             return PagewiseListView<GithubStars>(
               pageSize: AppSettings.maxItemPerPage,
