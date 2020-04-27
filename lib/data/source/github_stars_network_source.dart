@@ -10,14 +10,18 @@ class GithubStarsNetworkSource {
     @required this.dio,
   });
 
-  static const url =
-      "https://api.github.com/search/repositories?q=stars:%3E1&sort=stars";
+  static const url = "https://api.github.com/search/repositories";
   final Dio dio;
 
-  Future<GithubStarsApiModel> getGithubStarsApi(int page) async {
+  Future<GithubStarsApiModel> getGithubStarsApi(
+    int page, {
+    String searchQuery = "stars:>1",
+  }) async {
     final response = await dio.get(
       url,
       queryParameters: {
+        "q": searchQuery,
+        "sort": "stars",
         "page": page,
         "per_page": AppSettings.maxItemPerPage,
       },

@@ -11,6 +11,7 @@ import 'package:github_stars_flutter/data/repositories/github_stars_repo_data.da
 import 'package:github_stars_flutter/domain/repositories/github_stars_repo.dart';
 import 'package:github_stars_flutter/data/repositories/github_stars_repo_dev.dart';
 import 'package:github_stars_flutter/domain/usecases/get_all_github_stars_usecase.dart';
+import 'package:github_stars_flutter/domain/usecases/search_github_stars_usecase.dart';
 import 'package:github_stars_flutter/presentation/bloc/github_stars/github_stars_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -21,8 +22,11 @@ void $initGetIt(GetIt g, {String environment}) {
       () => GithubStarsNetworkSource(dio: g<Dio>()));
   g.registerLazySingleton<GetAllGithubStarsUsecase>(
       () => GetAllGithubStarsUsecase(repo: g<GithubStarsRepo>()));
-  g.registerFactory<GithubStarsBloc>(
-      () => GithubStarsBloc(getAllUseCase: g<GetAllGithubStarsUsecase>()));
+  g.registerLazySingleton<SearchGithubStarsUsecase>(
+      () => SearchGithubStarsUsecase(repo: g<GithubStarsRepo>()));
+  g.registerFactory<GithubStarsBloc>(() => GithubStarsBloc(
+      getAllUseCase: g<GetAllGithubStarsUsecase>(),
+      searchUsecase: g<SearchGithubStarsUsecase>()));
 
   //Register prod Dependencies --------
   if (environment == 'prod') {

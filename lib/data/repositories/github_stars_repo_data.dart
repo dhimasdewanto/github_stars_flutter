@@ -29,6 +29,25 @@ class GithubStarsRepoData implements GithubStarsRepo {
     return listGithubStars;
   }
 
+  @override
+  Future<List<GithubStars>> searchGithubStars(
+    String searchText,
+    int page,
+  ) async {
+    if (page == 0) {
+      throw Exception("Page cannot be zero (0)");
+    }
+
+    final dataFromApi = await githubStarsNetworkSource.getGithubStarsApi(
+      page,
+      searchQuery: searchText,
+    );
+
+    final listGithubStars = _convertApiModelToEntity(dataFromApi);
+
+    return listGithubStars;
+  }
+
   List<GithubStars> _convertApiModelToEntity(GithubStarsApiModel dataFromApi) {
     return dataFromApi.items.map<GithubStars>((repo) {
       return GithubStars(
