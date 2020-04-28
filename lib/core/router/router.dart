@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route_annotations.dart';
+import 'package:github_stars_flutter/presentation/pages/search_page.dart';
 import 'package:github_stars_flutter/presentation/pages/view_all_page.dart';
 import 'package:github_stars_flutter/presentation/pages/view_detail_page.dart';
 
@@ -8,4 +9,6 @@ class $Router {
   ViewAllPage viewAllPage;
 
   ViewDetailPage viewDetailPage;
+
+  SearchPage searchPage;
 }

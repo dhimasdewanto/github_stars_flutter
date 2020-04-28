@@ -10,15 +10,23 @@ import 'star_widget.dart';
 class PagewiseGithubStars extends StatelessWidget {
   const PagewiseGithubStars({
     Key key,
-    @required this.controller,
-  }) : super(key: key);
+    this.controller,
+    this.pageSize,
+    this.pageFuture,
+  })  : assert((pageFuture != null && pageSize != null && controller == null) ||
+            (pageFuture == null && pageSize == null && controller != null)),
+        super(key: key);
 
   final PagewiseLoadController<GithubStars> controller;
+  final int pageSize;
+  final Future<List<GithubStars>> Function(int) pageFuture;
 
   @override
   Widget build(BuildContext context) {
     return PagewiseListView<GithubStars>(
       pageLoadController: controller,
+      pageSize: pageSize,
+      pageFuture: pageFuture,
       itemBuilder: (context, star, index) {
         return Column(
           children: <Widget>[

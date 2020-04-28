@@ -10,10 +10,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:github_stars_flutter/presentation/pages/view_all_page.dart';
 import 'package:github_stars_flutter/presentation/pages/view_detail_page.dart';
 import 'package:github_stars_flutter/domain/entities/github_stars.dart';
+import 'package:github_stars_flutter/presentation/pages/search_page.dart';
 
 abstract class Routes {
   static const viewAllPage = '/';
   static const viewDetailPage = '/view-detail-page';
+  static const searchPage = '/search-page';
 }
 
 class Router extends RouterBase {
@@ -46,6 +48,15 @@ class Router extends RouterBase {
               key: typedArgs.key, githubStars: typedArgs.githubStars),
           settings: settings,
         );
+      case Routes.searchPage:
+        if (hasInvalidArgs<SearchPageArguments>(args)) {
+          return misTypedArgsRoute<SearchPageArguments>(args);
+        }
+        final typedArgs = args as SearchPageArguments ?? SearchPageArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => SearchPage(key: typedArgs.key),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -67,4 +78,10 @@ class ViewDetailPageArguments {
   final Key key;
   final GithubStars githubStars;
   ViewDetailPageArguments({this.key, @required this.githubStars});
+}
+
+//SearchPage arguments holder class
+class SearchPageArguments {
+  final Key key;
+  SearchPageArguments({this.key});
 }

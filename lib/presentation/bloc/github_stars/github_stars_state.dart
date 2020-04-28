@@ -14,25 +14,3 @@ class ViewGithubStarsState extends GithubStarsState {
   @override
   List<Object> get props => [futureListGithubStars];
 }
-
-class SearchedGithubStarsState extends GithubStarsState {
-  SearchedGithubStarsState({
-    @required this.futureListGithubStars,
-  });
-
-  final Future<List<GithubStars>> Function(int index) futureListGithubStars;
-
-  @override
-  List<Object> get props => [futureListGithubStars];
-}
-
-class OpenSearchState extends GithubStarsState {
-  OpenSearchState({
-    @required this.futureListGithubStars,
-  });
-
-  final Future<List<GithubStars>> Function(int index) futureListGithubStars;
-
-  @override
-  List<Object> get props => [futureListGithubStars];
-}
