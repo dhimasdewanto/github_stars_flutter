@@ -23,9 +23,7 @@ class SearchPage extends StatelessWidget {
                   hintText: "Search...",
                   border: InputBorder.none,
                 ),
-                style: TextStyle(
-                  color: Theme.of(context).canvasColor,
-                ),
+                style: Theme.of(context).textTheme.body1,
                 textInputAction: TextInputAction.search,
                 onSubmitted: (value) {
                   BlocProvider.of<SearchGithubStarsBloc>(context).add(

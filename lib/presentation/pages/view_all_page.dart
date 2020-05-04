@@ -1,44 +1,58 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:github_stars_flutter/core/app_settings.dart';
 import 'package:github_stars_flutter/core/dependency_injection/dependency_injection.dart';
-import 'package:github_stars_flutter/core/router/router.gr.dart';
+import 'package:github_stars_flutter/presentation/app_bars/settings_app_bar.dart';
+import 'package:github_stars_flutter/presentation/app_bars/view_all_app_bar.dart';
 import 'package:github_stars_flutter/presentation/bloc/github_stars/github_stars_bloc.dart';
-import 'package:github_stars_flutter/presentation/widgets/pagewise_github_stars.dart';
+import 'package:github_stars_flutter/presentation/fragments/settings_fragment.dart';
+import 'package:github_stars_flutter/presentation/fragments/view_all_fragment.dart';
 
-class ViewAllPage extends StatelessWidget {
+class ViewAllPage extends StatefulWidget {
   const ViewAllPage({Key key}) : super(key: key);
+
+  @override
+  _ViewAllPageState createState() => _ViewAllPageState();
+}
+
+class _ViewAllPageState extends State<ViewAllPage> {
+  var _selectedIndex = 0;
+
+  final _fragments = [
+    const ViewAllFragment(),
+    const SettingFragment(),
+  ];
+
+  AppBar _getAppBar(BuildContext context, int index) {
+    final listAppBars = [
+      ViewAllAppBar(context),
+      SettingsAppBar(),
+    ];
+    return listAppBars[index];
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GithubStarsBloc>(
       create: (context) => getIt<GithubStarsBloc>(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(AppSettings.appName),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                ExtendedNavigator.of(context).pushNamed(
-                  Routes.searchPage,
-                );
-              },
+        appBar: _getAppBar(context, _selectedIndex),
+        body: _fragments[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: const Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: const Text('Settings'),
             ),
           ],
-        ),
-        body: BlocBuilder<GithubStarsBloc, GithubStarsState>(
-          builder: (context, state) {
-            final futureListGithubStars =
-                (state as ViewGithubStarsState).futureListGithubStars;
-
-            return PagewiseGithubStars(
-              pageSize: AppSettings.maxItemPerPage,
-              pageFuture: (index) {
-                return futureListGithubStars(index + 1);
-              },
-            );
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
           },
         ),
       ),

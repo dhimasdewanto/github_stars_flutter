@@ -7,6 +7,7 @@
 import 'package:dio/dio.dart';
 import 'package:github_stars_flutter/core/dependency_injection/register_module.dart';
 import 'package:github_stars_flutter/data/source/github_stars_network_source.dart';
+import 'package:github_stars_flutter/presentation/bloc/settings/settings_bloc.dart';
 import 'package:github_stars_flutter/data/repositories/github_stars_repo_data.dart';
 import 'package:github_stars_flutter/domain/repositories/github_stars_repo.dart';
 import 'package:github_stars_flutter/data/repositories/github_stars_repo_dev.dart';
@@ -21,6 +22,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<Dio>(() => registerModule.dio);
   g.registerLazySingleton<GithubStarsNetworkSource>(
       () => GithubStarsNetworkSource(dio: g<Dio>()));
+  g.registerFactory<SettingsBloc>(() => SettingsBloc());
   g.registerLazySingleton<GetAllGithubStarsUsecase>(
       () => GetAllGithubStarsUsecase(repo: g<GithubStarsRepo>()));
   g.registerFactory<GithubStarsBloc>(
