@@ -66,7 +66,7 @@ class PagewiseGithubStars extends StatelessWidget {
                           star.programmingLanguage,
                           style: TextStyle(
                             fontSize:
-                                Theme.of(context).textTheme.subtitle.fontSize,
+                                Theme.of(context).textTheme.subtitle2.fontSize,
                             color: Colors.white,
                           ),
                         ),

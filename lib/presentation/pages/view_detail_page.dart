@@ -24,7 +24,7 @@ class ViewDetailPage extends StatelessWidget {
           children: <Widget>[
             Text(
               "${githubStars.ownerName}/${githubStars.name}",
-              style: Theme.of(context).textTheme.headline,
+              style: Theme.of(context).textTheme.headline5,
             ),
             const SizedBox(height: 20.0),
             Text(githubStars.description),

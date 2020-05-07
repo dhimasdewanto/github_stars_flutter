@@ -12,6 +12,10 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final bodyText1 = Theme.of(context).textTheme.bodyText1;
+    final canvasColor = Theme.of(context).canvasColor;
+
     return BlocProvider<SearchGithubStarsBloc>(
       create: (context) => getIt<SearchGithubStarsBloc>(),
       child: Scaffold(
@@ -23,7 +27,11 @@ class SearchPage extends StatelessWidget {
                   hintText: "Search...",
                   border: InputBorder.none,
                 ),
-                style: Theme.of(context).textTheme.body1,
+                style: brightness == Brightness.dark
+                    ? bodyText1
+                    : bodyText1.copyWith(
+                        color: canvasColor,
+                      ),
                 textInputAction: TextInputAction.search,
                 onSubmitted: (value) {
                   BlocProvider.of<SearchGithubStarsBloc>(context).add(
