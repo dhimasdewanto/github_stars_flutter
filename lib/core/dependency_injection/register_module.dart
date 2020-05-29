@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-@registerModule
+@module
 abstract class RegisterModule {
   @lazySingleton
   Dio get dio => Dio();

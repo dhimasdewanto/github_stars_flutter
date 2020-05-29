@@ -16,11 +16,18 @@ abstract class Routes {
   static const viewAllPage = '/';
   static const viewDetailPage = '/view-detail-page';
   static const searchPage = '/search-page';
+  static const all = {
+    viewAllPage,
+    viewDetailPage,
+    searchPage,
+  };
 }
 
 class Router extends RouterBase {
-  //This will probably be removed in future versions
-  //you should call ExtendedNavigator.ofRouter<Router>() directly
+  @override
+  Set<String> get allRoutes => Routes.all;
+
+  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
   static ExtendedNavigatorState get navigator =>
       ExtendedNavigator.ofRouter<Router>();
 
@@ -35,7 +42,7 @@ class Router extends RouterBase {
         final typedArgs =
             args as ViewAllPageArguments ?? ViewAllPageArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => ViewAllPage(key: typedArgs.key),
+          builder: (context) => ViewAllPage(key: typedArgs.key),
           settings: settings,
         );
       case Routes.viewDetailPage:
@@ -44,7 +51,7 @@ class Router extends RouterBase {
         }
         final typedArgs = args as ViewDetailPageArguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => ViewDetailPage(
+          builder: (context) => ViewDetailPage(
               key: typedArgs.key, githubStars: typedArgs.githubStars),
           settings: settings,
         );
@@ -54,7 +61,7 @@ class Router extends RouterBase {
         }
         final typedArgs = args as SearchPageArguments ?? SearchPageArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (_) => SearchPage(key: typedArgs.key),
+          builder: (context) => SearchPage(key: typedArgs.key),
           settings: settings,
         );
       default:
@@ -63,9 +70,9 @@ class Router extends RouterBase {
   }
 }
 
-//**************************************************************************
+// *************************************************************************
 // Arguments holder classes
-//***************************************************************************
+// **************************************************************************
 
 //ViewAllPage arguments holder class
 class ViewAllPageArguments {
