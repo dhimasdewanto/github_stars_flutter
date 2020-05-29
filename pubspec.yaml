@@ -14,37 +14,35 @@ description: GitHub top repositories based on stars rating.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.8.0 <3.0.0"
+  sdk: ">=2.8.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
 
   flutter_bloc: ^4.0.0
   equatable: ^1.1.1
 
   dio: ^3.0.9
 
-  injectable: ^0.3.0
-  get_it: ^4.0.1
+  injectable: ^0.4.0
+  get_it: ^4.0.2
 
   flutter_pagewise: ^1.2.3
 
   cached_network_image: ^2.0.0
 
-  auto_route: ^0.4.4
+  auto_route: ^0.5.0
+  
+  dartz: ^0.9.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  injectable_generator: ^0.3.3
+  injectable_generator: ^0.4.0
   build_runner: ^1.8.1
-  auto_route_generator: ^0.4.5
+  auto_route_generator: ^0.5.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
