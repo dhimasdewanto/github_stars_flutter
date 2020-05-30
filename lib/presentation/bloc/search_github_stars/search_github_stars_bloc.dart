@@ -30,7 +30,7 @@ class SearchGithubStarsBloc
   ) async* {
     final Future<List<GithubStars>> Function(int) futureListGithubStars =
         (int page) async {
-      final result = await searchUsecase.call(
+      final result = await searchUsecase(
         SearchGithubStarsUseCaseParams(
           page: page,
           search: event.searchText,

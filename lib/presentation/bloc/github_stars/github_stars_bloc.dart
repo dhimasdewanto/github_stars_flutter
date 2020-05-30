@@ -30,7 +30,7 @@ class GithubStarsBloc extends Bloc<GithubStarsEvent, GithubStarsState> {
   ) async* {}
 
   Future<List<GithubStars>> _getListGithubStars(int page) async {
-    final result = await getAllUseCase.call(
+    final result = await getAllUseCase(
       GetAllGithubStarsUseCaseParams(page: page),
     );
     return result.fold(
