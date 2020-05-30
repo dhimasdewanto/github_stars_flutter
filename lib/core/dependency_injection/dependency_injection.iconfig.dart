@@ -20,8 +20,8 @@ import 'package:get_it/get_it.dart';
 void $initGetIt(GetIt g, {String environment}) {
   final registerModule = _$RegisterModule();
   g.registerLazySingleton<Dio>(() => registerModule.dio);
-  g.registerLazySingleton<GithubStarsNetworkSource>(
-      () => GithubStarsNetworkSource(dio: g<Dio>()));
+  g.registerFactory<GithubStarsNetworkSource>(
+      () => GithubStarsNetworkSourceImpl(dio: g<Dio>()));
   g.registerLazySingleton<SearchGithubStarsUseCase>(
       () => SearchGithubStarsUseCase(repo: g<GithubStarsRepo>()));
   g.registerFactory<SettingsBloc>(() => SettingsBloc());
