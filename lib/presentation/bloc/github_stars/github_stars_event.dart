@@ -1,5 +1,6 @@
 part of 'github_stars_bloc.dart';
 
-abstract class GithubStarsEvent extends Equatable {
-  const GithubStarsEvent();
+@freezed
+abstract class GithubStarsEvent with _$GithubStarsEvent {
+  const factory GithubStarsEvent() = _GithubStarsEvent;
 }

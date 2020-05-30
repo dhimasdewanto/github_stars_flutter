@@ -35,7 +35,7 @@ class SearchPage extends StatelessWidget {
                 textInputAction: TextInputAction.search,
                 onSubmitted: (value) {
                   BlocProvider.of<SearchGithubStarsBloc>(context).add(
-                    SearchEvent(
+                    SearchGithubStarsEvent(
                       searchText: value,
                     ),
                   );
@@ -46,20 +46,19 @@ class SearchPage extends StatelessWidget {
         ),
         body: BlocBuilder<SearchGithubStarsBloc, SearchGithubStarsState>(
           builder: (context, state) {
-            if (state is SearchedGithubStarsState) {
-              final futureListGithubStars = state.futureListGithubStars;
-
-              return PagewiseGithubStars(
-                controller: PagewiseLoadController<GithubStars>(
-                  pageSize: AppSettings.maxItemPerPage,
-                  pageFuture: (index) {
-                    return futureListGithubStars(index + 1);
-                  },
-                ),
-              );
-            }
-
-            return const Offstage();
+            return state.map(
+              initial: (initial) => const Offstage(),
+              result: (result) {
+                return PagewiseGithubStars(
+                  controller: PagewiseLoadController<GithubStars>(
+                    pageSize: AppSettings.maxItemPerPage,
+                    pageFuture: (index) {
+                      return result.futureListGithubStars(index + 1);
+                    },
+                  ),
+                );
+              },
+            );
           },
         ),
       ),

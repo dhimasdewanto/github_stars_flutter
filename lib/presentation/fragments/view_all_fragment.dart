@@ -11,8 +11,7 @@ class ViewAllFragment extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GithubStarsBloc, GithubStarsState>(
       builder: (context, state) {
-        final futureListGithubStars =
-            (state as ViewGithubStarsState).futureListGithubStars;
+        final futureListGithubStars = state.futureListGithubStars;
 
         return PagewiseGithubStars(
           pageSize: AppSettings.maxItemPerPage,

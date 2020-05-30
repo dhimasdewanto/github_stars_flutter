@@ -1,21 +1,11 @@
 part of 'search_github_stars_bloc.dart';
 
-abstract class SearchGithubStarsState extends Equatable {
-  const SearchGithubStarsState();
-}
+@freezed
+abstract class SearchGithubStarsState with _$SearchGithubStarsState {
+  const factory SearchGithubStarsState.initial() = _InitialSearchState;
 
-class InitialSearchGithubStarsState extends SearchGithubStarsState {
-  @override
-  List<Object> get props => null;
-}
-
-class SearchedGithubStarsState extends SearchGithubStarsState {
-  SearchedGithubStarsState({
-    @required this.futureListGithubStars,
-  });
-
-  final Future<List<GithubStars>> Function(int index) futureListGithubStars;
-
-  @override
-  List<Object> get props => [futureListGithubStars];
+  const factory SearchGithubStarsState.result({
+    @required
+        Future<List<GithubStars>> Function(int index) futureListGithubStars,
+  }) = _ResultSearchState;
 }
